@@ -1,0 +1,444 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bingo Cơ đồ Việt Nam</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Be+Vietnam+Pro:wght@400;600;700&display=swap">
+<style>
+/* Layout: sân khấu 3D (lồng cầu) + thẻ câu hỏi bên trái, bảng số bên phải; một cột trên điện thoại.
+   Thiết kế một giao diện tối duy nhất (sân khấu đêm) có chủ ý. */
+:root{
+  --night:#0b1320; --red:#c8102e; --red-hi:#ff3b4f; --gold:#ffcd00; --gold-soft:#e6b85c;
+  --ivory:#f5f1e6; --muted:#a9b2c2; --ok:#2ecc71; --glass:rgba(17,28,46,.62); --edge:rgba(255,205,0,.35);
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+html,body{background:var(--night)}
+body{color:var(--ivory);font-family:var(--body);font-size:16px;line-height:1.45;
+  background:radial-gradient(1200px 700px at 35% 30%,#1d2b47 0%,var(--night) 60%) fixed,var(--night)}
+.wrap{max-width:1500px;margin:0 auto;padding-block:16px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header svg{width:40px;height:40px;flex:none;filter:drop-shadow(0 0 10px rgba(255,205,0,.6))}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:1;margin:0;letter-spacing:.02em;text-transform:uppercase;text-wrap:balance}
+h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 18px rgba(255,205,0,.45)}
+.sub{color:var(--muted);font-size:14px;margin:0;flex-basis:100%}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+.left{display:flex;flex-direction:column;gap:14px;min-width:0}
+.viewport{position:relative;height:clamp(300px,45vh,560px);border-radius:14px;overflow:hidden;border:1px solid var(--edge);
+  background:radial-gradient(circle at 50% 35%,#24365a 0%,#0e1828 70%);box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,0 20px 60px rgba(0,0,0,.45)}
+.viewport canvas{display:block;width:100%;height:100%}
+.chip{position:absolute;top:12px;left:12px;background:rgba(11,19,32,.7);border:1px solid var(--edge);border-radius:999px;padding:6px 14px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.hint{position:absolute;bottom:10px;right:14px;font-size:12px;color:var(--muted)}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-weight:700;border-radius:10px;border:1.5px solid var(--edge);background:rgba(255,255,255,.04);color:var(--ivory);padding:10px 18px;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+button:hover:not(:disabled){border-color:var(--gold);background:rgba(255,205,0,.08)}
+button:active:not(:disabled){transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button:disabled{opacity:.35;cursor:not-allowed}
+.spin{font-family:var(--display);font-size:26px;letter-spacing:.08em;padding:10px 34px;border:none;color:#fff;
+  background:linear-gradient(180deg,var(--red-hi),var(--red));box-shadow:0 0 0 2px rgba(255,205,0,.55),0 8px 30px rgba(200,16,46,.55)}
+.spin:hover:not(:disabled){background:linear-gradient(180deg,#ff5566,#d5142f)}
+.keys{font-size:12px;color:var(--muted);margin-left:auto}
+kbd{font-family:ui-monospace,monospace;font-size:11px;border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 5px}
+.card{position:relative;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--edge);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.qhead{display:flex;align-items:center;gap:16px}
+.qno{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.14em;color:var(--gold)}
+.ring{margin-left:auto;position:relative;width:64px;height:64px;flex:none}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:rgba(255,255,255,.12)}
+.ring .fg{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .3s linear,stroke .3s}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
+.ring.low .fg{stroke:var(--red-hi)}
+.ring.low b{color:var(--red-hi);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.18)}}
+.q{font-size:clamp(20px,2.3vw,30px);font-weight:700;line-height:1.3;margin:0;text-wrap:balance}
+.q.placeholder{font-weight:400;color:var(--muted);font-size:18px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:14px;align-items:center;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:12px;padding:12px 14px;font-size:clamp(17px,1.7vw,22px);min-width:0;transition:background .3s,border-color .3s,opacity .3s,box-shadow .3s}
+.opt .k{font-family:var(--display);font-weight:800;font-size:28px;width:46px;height:46px;flex:none;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg,var(--red-hi),var(--red));color:#fff}
+.opt.right{border-color:var(--ok);background:rgba(46,204,113,.16);box-shadow:0 0 28px rgba(46,204,113,.45)}
+.opt.right .k{background:var(--ok);color:#06200f}
+.opt.dim{opacity:.3}
+.explain{border-left:4px solid var(--ok);padding:4px 0 4px 14px;font-size:17px}
+.explain strong{color:var(--ok)}
+aside{display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:700}
+.board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cell{aspect-ratio:1;max-width:100%;border-radius:50%;padding:0;font-family:var(--display);font-weight:800;font-size:24px;font-variant-numeric:tabular-nums;
+  border:1.5px solid rgba(255,255,255,.18);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.12),rgba(255,255,255,.02))}
+.cell.done{opacity:.28;text-decoration:line-through}
+.cell.now{border-color:var(--gold);color:#fff;background:radial-gradient(circle at 35% 30%,var(--red-hi),var(--red));box-shadow:0 0 18px rgba(255,59,79,.7);opacity:1;text-decoration:none}
+.hist{font-family:var(--display);font-weight:600;font-size:22px;color:var(--muted);font-variant-numeric:tabular-nums;word-break:break-word;min-height:1.4em}
+.hist b{color:var(--gold)}
+.bingo{font-family:var(--display);font-size:30px;letter-spacing:.1em;color:#1a1200;border:none;background:linear-gradient(180deg,#ffe066,var(--gold));box-shadow:0 0 30px rgba(255,205,0,.45)}
+.bingo:hover:not(:disabled){background:linear-gradient(180deg,#fff0a0,#ffd84d)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rules{margin:0;padding-left:20px;font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.small{font-size:13px;color:var(--muted)}
+.overlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(5,9,16,.55);perspective:900px;cursor:pointer}
+.big{font-family:var(--display);font-weight:800;font-size:clamp(90px,18vw,260px);line-height:.9;color:var(--gold);letter-spacing:.04em;text-align:center;
+  text-shadow:0 2px 0 #e0a800,0 4px 0 #c99200,0 6px 0 #b07f00,0 8px 0 #946a00,0 10px 0 #7a5700,0 14px 30px rgba(0,0,0,.6),0 0 60px rgba(255,205,0,.6)}
+.big small{display:block;font-size:.2em;letter-spacing:.2em;color:var(--ivory);text-shadow:none;margin-top:14px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="#c8102e"/><polygon fill="#ffcd00" points="50,14 58.8,40.9 87.1,40.9 64.2,57.6 72.9,84.5 50,67.9 27.1,84.5 35.8,57.6 12.9,40.9 41.2,40.9"/></svg>
+    <h1>Bingo <em>Cơ đồ Việt Nam</em></h1>
+    <p class="sub">“Đất nước ta chưa bao giờ có được cơ đồ, tiềm lực, vị thế và uy tín quốc tế như ngày nay” · VNR202</p>
+  </header>
+  <div class="grid">
+    <div class="left">
+      <div class="viewport" id="vp">
+        <div class="chip" id="status">Sẵn sàng · 20 quả cầu</div>
+        <div class="hint">Kéo chuột để xoay góc nhìn</div>
+      </div>
+      <div class="controls">
+        <button class="spin" id="spin">QUAY SỐ</button>
+        <button id="reveal" disabled>Hiện đáp án</button>
+        <button id="pause" disabled>Dừng giờ</button>
+        <span class="keys"><kbd>Space</kbd> quay · <kbd>Enter</kbd> đáp án · <kbd>B</kbd> Bingo</span>
+      </div>
+      <section class="card" aria-live="polite">
+        <div class="qhead">
+          <span class="qno" id="qno">CHUẨN BỊ</span>
+          <div class="ring" id="ring"><svg viewBox="0 0 64 64"><circle class="bg" cx="32" cy="32" r="27"/><circle class="fg" id="arc" cx="32" cy="32" r="27"/></svg><b id="timer">10</b></div>
+        </div>
+        <p class="q placeholder" id="q">Bấm “QUAY SỐ” để lồng cầu chọn ngẫu nhiên một số. Số đó mở ra một câu hỏi, các nhóm có 10 giây để ghi đáp án A, B, C hoặc D rồi giơ lên.</p>
+        <div class="opts" id="opts" hidden></div>
+        <div class="explain" id="explain" hidden></div>
+      </section>
+    </div>
+    <aside>
+      <div class="panel">
+        <button class="bingo" id="bingo">BINGO!</button>
+        <div class="small">Bấm khi có nhóm khoanh đủ 2 hàng.</div>
+      </div>
+      <div class="panel">
+        <div class="label">Bảng số</div>
+        <div class="board" id="board"></div>
+        <div class="small">Bấm một số chưa quay để mở thẳng câu hỏi của số đó.</div>
+      </div>
+      <div class="panel">
+        <div class="label">Thứ tự đã quay</div>
+        <div class="hist" id="hist">Chưa có</div>
+        <div class="row" id="resetBox"><button id="reset">Chơi lại</button><button id="sound">Âm thanh: bật</button></div>
+      </div>
+      <div class="panel">
+        <div class="label">Luật chơi</div>
+        <ol class="rules">
+          <li>Mỗi nhóm có một phiếu 4×4 gồm 16 số ngẫu nhiên từ 1 đến 20.</li>
+          <li>Quay ra số nào thì cả lớp trả lời câu hỏi của số đó.</li>
+          <li>Nhóm có số đó trên phiếu và trả lời đúng thì khoanh số.</li>
+          <li>Nhóm đầu tiên khoanh đủ 2 hàng (ngang, dọc hoặc chéo) hô “BINGO!”.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="overlay" id="overlay" hidden><div class="big" id="bigtxt">BINGO!<small>Chúc mừng nhóm chiến thắng</small></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
+<script>
+const QS = [
+ {q:"Nhận định “Đất nước ta chưa bao giờ có được cơ đồ, tiềm lực, vị thế và uy tín quốc tế như ngày nay” được khẳng định tại Đại hội nào?", a:"Đại hội XIII", w:["Đại hội VI","Đại hội XI","Đại hội XII"], e:"Tổng Bí thư Nguyễn Phú Trọng nêu nhận định này, được Đại hội thông qua và đưa vào Nghị quyết."},
+ {q:"Hội nghị Trung ương 4 khóa XII (30/10/2016) khẳng định đất nước “chưa bao giờ có được” hai yếu tố nào?", a:"Cơ đồ và vị thế", w:["Tiềm lực và uy tín","Cơ đồ và tiềm lực","Vị thế và uy tín"], e:"Đến Đại hội XIII, nhận định được bổ sung thêm “tiềm lực” và “uy tín quốc tế”."},
+ {q:"Năm 1986, khi bắt đầu đổi mới, lạm phát ở nước ta lên tới khoảng bao nhiêu?", a:"774%", w:["67%","174%","1.000%"], e:"Đến năm 1991, lạm phát giảm còn 67,1%."},
+ {q:"Năm 1988, nước ta còn phải nhập khẩu khoảng bao nhiêu gạo?", a:"Hơn 45 vạn tấn", w:["Khoảng 4,5 vạn tấn","Khoảng 4,5 triệu tấn","Hơn 8 triệu tấn"], e:"Chỉ một năm sau, năm 1989, lương thực đã đủ dùng, có dự trữ và bắt đầu xuất khẩu."},
+ {q:"Chế độ phân phối theo tem phiếu được xóa bỏ vào thời điểm nào?", a:"Cuối năm 1988", w:["Năm 1986","Năm 1991","Năm 1996"], e:"Đây là một trong những chuyển biến đầu tiên sau Đại hội VI."},
+ {q:"Năm 2025, quy mô GDP của Việt Nam ước đạt khoảng bao nhiêu?", a:"Khoảng 514 tỷ USD", w:["Khoảng 314 tỷ USD","Khoảng 714 tỷ USD","Khoảng 930 tỷ USD"], e:"GDP năm 2025 tăng khoảng 8,02%, thuộc nhóm cao trong khu vực."},
+ {q:"GDP bình quân đầu người của Việt Nam năm 2025 khoảng bao nhiêu?", a:"5.026 USD", w:["2.500 USD","8.500 USD","9.809 USD"], e:"Tăng khoảng 50 lần so với mức khoảng 100 USD ở thập niên 1980."},
+ {q:"Năm 2025, tổng kim ngạch xuất nhập khẩu của Việt Nam đạt khoảng bao nhiêu?", a:"Khoảng 930,1 tỷ USD", w:["Khoảng 3 tỷ USD","Khoảng 367 tỷ USD","Khoảng 514 tỷ USD"], e:"Năm 1986 con số này chỉ gần 3 tỷ USD, tức là đã tăng hơn 300 lần."},
+ {q:"Năm 2023, Việt Nam xuất khẩu khoảng bao nhiêu gạo?", a:"Trên 8,1 triệu tấn", w:["Khoảng 45 vạn tấn","Khoảng 4,5 triệu tấn","Khoảng 15 triệu tấn"], e:"Từ nước phải nhập gạo năm 1988, Việt Nam trở thành nước xuất khẩu gạo hàng đầu thế giới."},
+ {q:"Theo giáo trình, tỷ lệ nghèo của cả nước năm 1993 là bao nhiêu?", a:"58%", w:["25%","6%","90%"], e:"Năm 2018 còn khoảng 6%, năm 2025 còn khoảng 1,3%."},
+ {q:"Theo UNDP, chỉ số phát triển con người (HDI) của Việt Nam năm 2023 đạt bao nhiêu?", a:"0,766", w:["0,499","0,641","0,900"], e:"Thuộc nhóm phát triển con người cao, xếp 93/193. Năm 1990 chỉ số này là 0,499."},
+ {q:"Năm 2025, Việt Nam xếp hạng bao nhiêu trong Chỉ số Đổi mới sáng tạo toàn cầu (GII)?", a:"Thứ 44/139", w:["Thứ 76/139","Thứ 93/139","Thứ 95/139"], e:"Năm 2013 Việt Nam chỉ xếp thứ 76."},
+ {q:"Trước đổi mới, Đảng coi đoàn kết, hợp tác toàn diện với nước nào là “hòn đá tảng” của chính sách đối ngoại?", a:"Liên Xô", w:["Trung Quốc","Lào","Cuba"], e:"Sau đó Đảng chuyển sang đa dạng hóa, đa phương hóa quan hệ đối ngoại."},
+ {q:"Việt Nam được bầu làm Ủy viên không thường trực Hội đồng Bảo an LHQ nhiệm kỳ 2020–2021 với bao nhiêu phiếu?", a:"192/193 phiếu", w:["180/193 phiếu","150/193 phiếu","193/193 phiếu"], e:"Đây là lần thứ hai Việt Nam giữ vị trí này, sau nhiệm kỳ 2008–2009."},
+ {q:"Tính đến năm 2025, Việt Nam có quan hệ ngoại giao với bao nhiêu quốc gia?", a:"194 quốc gia", w:["42 quốc gia","188 quốc gia","193 quốc gia"], e:"Năm 2025 Việt Nam thiết lập quan hệ ngoại giao với Tuvalu. Năm 2018 con số này là 188."},
+ {q:"Quốc gia nào là “mảnh ghép cuối cùng” giúp Việt Nam có Đối tác chiến lược toàn diện với cả 5 nước Ủy viên thường trực HĐBA?", a:"Vương quốc Anh", w:["Pháp","Hoa Kỳ","Nga"], e:"Cuối tháng 10/2025, Anh trở thành Đối tác chiến lược toàn diện thứ 14 của Việt Nam."},
+ {q:"Việt Nam tái đắc cử Hội đồng Nhân quyền LHQ nhiệm kỳ 2026–2028 với bao nhiêu phiếu?", a:"180 phiếu", w:["120 phiếu","145 phiếu","192 phiếu"], e:"Số phiếu cao nhất nhóm châu Á – Thái Bình Dương."},
+ {q:"Năm 2022 (tính theo sức mua tương đương), năng suất lao động của Việt Nam chỉ bằng bao nhiêu phần trăm của Singapore?", a:"11,4%", w:["25%","35,4%","64,8%"], e:"Năng suất lao động của Việt Nam bằng 35,4% của Malaysia và 64,8% của Thái Lan."},
+ {q:"Năm 2025, khu vực có vốn đầu tư nước ngoài (FDI) chiếm khoảng bao nhiêu phần trăm tổng kim ngạch xuất khẩu?", a:"77,3%", w:["23%","52%","50%"], e:"Khu vực doanh nghiệp trong nước chỉ chiếm chưa đến 23%."},
+ {q:"Báo cáo chính trị Đại hội XIV xác định “nguy cơ bao trùm” là gì?", a:"Tụt hậu, nhất là về công nghệ, và rơi vào bẫy thu nhập trung bình", w:["Diễn biến hòa bình","Già hóa dân số","Thiên tai và biến đổi khí hậu"], e:"Cảnh báo về nguy cơ tụt hậu đã được nêu từ Đại hội VII năm 1991."}
+];
+const KEYS=["A","B","C","D"];
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+QS.forEach((x,i)=>{const r=rng(i*977+13);const o=[x.a,...x.w];for(let j=o.length-1;j>0;j--){const k=Math.floor(r()*(j+1));[o[j],o[k]]=[o[k],o[j]]}x.opts=o;x.ans=o.indexOf(x.a)});
+
+const LIMIT=10;
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasGsap=typeof gsap!=="undefined";
+let drawn=[],current=null,left=LIMIT,tick=null,paused=false,busy=false,soundOn=true;
+
+/* ---------- Âm thanh (Web Audio, không dùng file) ---------- */
+let actx=null;
+function audio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume()}catch(e){actx=null}return actx}
+function beep(freq,dur,type,vol){if(!soundOn)return;const a=audio();if(!a)return;const o=a.createOscillator(),g=a.createGain();o.type=type||"sine";o.frequency.value=freq;g.gain.setValueAtTime(vol||.15,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+dur);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+dur)}
+function fanfare(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.35,"triangle",.18),i*110))}
+
+/* ---------- Cảnh 3D ---------- */
+const vp=$("vp");
+let S=null;
+const R=2.2,BR=0.27;
+function numberTexture(n){
+  const c=document.createElement("canvas");c.width=512;c.height=256;const g=c.getContext("2d");
+  const grd=g.createLinearGradient(0,0,0,256);grd.addColorStop(0,"#ff2f45");grd.addColorStop(1,"#a50d26");g.fillStyle=grd;g.fillRect(0,0,512,256);
+  g.fillStyle="#ffcd00";g.fillRect(0,122,512,12);
+  for(const x of[128,384]){g.beginPath();g.arc(x,128,78,0,7);g.fillStyle="#f5f1e6";g.fill();g.lineWidth=8;g.strokeStyle="#ffcd00";g.stroke();
+    g.fillStyle="#0b1320";g.font="800 96px 'Barlow Condensed','Arial Narrow',sans-serif";g.textAlign="center";g.textBaseline="middle";g.fillText(n,x,134)}
+  const t=new THREE.CanvasTexture(c);t.anisotropy=4;t.encoding=THREE.sRGBEncoding;return t;
+}
+function initScene(){
+  if(typeof THREE==="undefined"){vp.insertAdjacentHTML("beforeend",'<div class="fallback">Không tải được thư viện 3D. Kiểm tra kết nối mạng rồi tải lại trang. Trò chơi vẫn dùng được bằng nút QUAY SỐ.</div>');return}
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;
+  vp.prepend(renderer.domElement);
+  const scene=new THREE.Scene();scene.fog=new THREE.Fog(0x0e1828,12,26);
+  {const bc=document.createElement("canvas");bc.width=16;bc.height=256;const bg=bc.getContext("2d");const gr=bg.createLinearGradient(0,0,0,256);
+   gr.addColorStop(0,"#0b1320");gr.addColorStop(.55,"#1d2c4a");gr.addColorStop(1,"#0e1828");bg.fillStyle=gr;bg.fillRect(0,0,16,256);
+   const bt=new THREE.CanvasTexture(bc);bt.encoding=THREE.sRGBEncoding;scene.background=bt}
+  const camera=new THREE.PerspectiveCamera(42,1,.1,100);camera.position.set(0,.9,8);
+  const BASE_Z=8;
+
+  scene.add(new THREE.HemisphereLight(0x9fb4ff,0x1a0a10,.45));
+  const spot=new THREE.SpotLight(0xffd36b,2.4,30,Math.PI/6,.5,1.2);spot.position.set(1.5,9,4);spot.target.position.set(0,0,0);
+  spot.castShadow=true;spot.shadow.mapSize.set(1024,1024);spot.shadow.bias=-.0005;scene.add(spot,spot.target);
+  const rim=new THREE.PointLight(0xff2340,1.6,9);rim.position.set(-3,2,-4);scene.add(rim);
+  const front=new THREE.DirectionalLight(0xffffff,.55);front.position.set(0,2,8);scene.add(front);
+
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(6,64),new THREE.MeshStandardMaterial({color:0x0c1322,roughness:.8,metalness:.2}));
+  floor.rotation.x=-Math.PI/2;floor.position.y=-3.6;floor.receiveShadow=true;scene.add(floor);
+  const edge=new THREE.Mesh(new THREE.TorusGeometry(4.2,.04,8,96),new THREE.MeshBasicMaterial({color:0xffcd00}));
+  edge.rotation.x=-Math.PI/2;edge.position.y=-3.58;scene.add(edge);
+
+  const gold=new THREE.MeshStandardMaterial({color:0xd4a437,metalness:.9,roughness:.28,emissive:0x2a1a00});
+  for(const sx of[-1,1]){
+    const post=new THREE.Mesh(new THREE.CylinderGeometry(.08,.12,3.6,16),gold);post.position.set(sx*(R+.45),-1.8,0);post.castShadow=true;scene.add(post);
+    const foot=new THREE.Mesh(new THREE.CylinderGeometry(.45,.55,.15,24),gold);foot.position.set(sx*(R+.45),-3.52,0);scene.add(foot);
+  }
+  const chute=new THREE.Mesh(new THREE.CylinderGeometry(.36,.36,1.3,24,1,true,Math.PI,Math.PI),new THREE.MeshStandardMaterial({color:0xd4a437,metalness:.9,roughness:.3,side:THREE.DoubleSide}));
+  chute.rotation.x=-Math.PI/2.6;chute.position.set(0,-R-.35,.75);scene.add(chute);
+
+  const cage=new THREE.Group();scene.add(cage);
+  const ringGeo=new THREE.TorusGeometry(R,.03,8,96);
+  for(let i=0;i<8;i++){const m=new THREE.Mesh(ringGeo,gold);m.rotation.x=i*Math.PI/8;m.castShadow=true;cage.add(m)}
+  for(const x of[-1.3,0,1.3]){const rr=Math.sqrt(R*R-x*x);const m=new THREE.Mesh(new THREE.TorusGeometry(rr,.035,8,72),gold);m.rotation.y=Math.PI/2;m.position.x=x;cage.add(m)}
+  const axle=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,2*R+1.1,16),gold);axle.rotation.z=Math.PI/2;cage.add(axle);
+  const crank=new THREE.Group();crank.position.x=R+.55;
+  const arm=new THREE.Mesh(new THREE.BoxGeometry(.08,.9,.08),gold);arm.position.y=.45;crank.add(arm);
+  const knob=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.4,16),new THREE.MeshStandardMaterial({color:0xc8102e,roughness:.4}));knob.rotation.z=Math.PI/2;knob.position.set(.2,.9,0);crank.add(knob);
+  cage.add(crank);
+  const glass=new THREE.Mesh(new THREE.SphereGeometry(R-.02,48,32),new THREE.MeshPhysicalMaterial({color:0x9fc3ff,transparent:true,opacity:.08,roughness:.05,metalness:0,clearcoat:1,depthWrite:false}));
+  scene.add(glass);
+
+  const ballGeo=new THREE.SphereGeometry(BR,40,28);
+  const balls=[];
+  for(let n=1;n<=20;n++){
+    const mat=new THREE.MeshPhysicalMaterial({map:numberTexture(n),roughness:.22,metalness:.05,clearcoat:1,clearcoatRoughness:.08});
+    const m=new THREE.Mesh(ballGeo,mat);m.castShadow=true;scene.add(m);
+    balls.push({n,mesh:m,p:new THREE.Vector3(),v:new THREE.Vector3(),active:true});
+  }
+
+  const PN=reduce?0:700,pg=new THREE.BufferGeometry(),pp=new Float32Array(Math.max(PN,1)*3);
+  for(let i=0;i<PN;i++){pp[i*3]=(Math.random()-.5)*18;pp[i*3+1]=Math.random()*10-4;pp[i*3+2]=(Math.random()-.5)*12-2}
+  pg.setAttribute("position",new THREE.BufferAttribute(pp,3));
+  const dust=new THREE.Points(pg,new THREE.PointsMaterial({color:0xffcd00,size:.05,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false}));
+  if(PN)scene.add(dust);
+  const rays=[];
+  for(const [x,rz] of[[-2.2,.25],[1.6,-.2],[3.6,-.35]]){
+    const r=new THREE.Mesh(new THREE.ConeGeometry(1.4,12,32,1,true),new THREE.MeshBasicMaterial({color:0xffd36b,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+    r.position.set(x,3,-3);r.rotation.z=rz;scene.add(r);rays.push(r)}
+
+  let controls=null;
+  if(THREE.OrbitControls){controls=new THREE.OrbitControls(camera,renderer.domElement);controls.enableZoom=false;controls.enablePan=false;controls.enableDamping=true;
+    controls.minPolarAngle=Math.PI*.33;controls.maxPolarAngle=Math.PI*.56;controls.minAzimuthAngle=-.6;controls.maxAzimuthAngle=.6;controls.target.set(0,-.2,0);controls.update()}
+  else camera.lookAt(0,-.2,0);
+
+  let composer=null;
+  try{if(THREE.EffectComposer&&THREE.UnrealBloomPass&&THREE.RenderPass){composer=new THREE.EffectComposer(renderer);composer.addPass(new THREE.RenderPass(scene,camera));
+    composer.addPass(new THREE.UnrealBloomPass(new THREE.Vector2(512,512),.55,.45,.82))}}catch(e){composer=null}
+
+  function resize(){const w=vp.clientWidth,h=vp.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;
+    const z=BASE_Z*(w/h<1.1?1.45:1);camera.position.setLength(Math.hypot(camera.position.x,camera.position.y,z));camera.updateProjectionMatrix();
+    if(composer)composer.setSize(w,h)}
+  new ResizeObserver(resize).observe(vp);resize();
+
+  S={renderer,scene,camera,cage,balls,controls,composer,stirEnd:0,spinV:.15,hero:null};
+  resetBalls();
+  let last=performance.now();
+  function frame(now){
+    const dt=Math.min(.033,(now-last)/1000);last=now;
+    const stirring=now<S.stirEnd;
+    S.spinV+=((stirring?7:.18)-S.spinV)*Math.min(1,dt*(stirring?2.5:1.2));
+    if(!reduce)cage.rotation.x+=S.spinV*dt;
+    physics(dt/2,stirring);physics(dt/2,stirring);
+    for(const b of balls)if(b.active){b.mesh.position.copy(b.p);b.mesh.rotation.x+=b.v.z*dt/BR;b.mesh.rotation.z-=b.v.x*dt/BR}
+    if(PN){const a=dust.geometry.attributes.position;for(let i=0;i<PN;i++){let y=a.array[i*3+1]+dt*.25;if(y>6)y=-4;a.array[i*3+1]=y}a.needsUpdate=true}
+    if(!reduce)rays.forEach((r,i)=>r.material.opacity=.035+.02*Math.sin(now/900+i*2));
+    if(controls)controls.update();
+    if(stirring&&!reduce){camera.position.x+=(Math.random()-.5)*.03;camera.position.y+=(Math.random()-.5)*.03}
+    if(composer)composer.render();else renderer.render(scene,camera);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+function resetBalls(){
+  if(!S)return;
+  for(const b of S.balls){
+    b.active=!drawn.includes(b.n);b.mesh.visible=b.active;b.mesh.scale.setScalar(1);
+    const a=Math.random()*Math.PI*2,r=Math.random()*(R-BR-.4);
+    b.p.set(Math.cos(a)*r,-Math.random()*1.4+.4,Math.sin(a)*r*.8);b.v.set(0,0,0);b.mesh.position.copy(b.p);
+  }
+}
+function physics(dt,stir){
+  const L=S.balls.filter(b=>b.active);const lim=R-BR-.04;
+  for(const b of L){
+    b.v.y-=(stir?4:8.5)*dt;
+    if(stir){b.v.y+=(-b.p.z)*4.2*dt;b.v.z+=(b.p.y)*4.2*dt;
+      if(Math.random()<4*dt){b.v.x+=(Math.random()-.5)*5;b.v.y+=Math.random()*5;b.v.z+=(Math.random()-.5)*5}}
+    b.v.multiplyScalar(1-.25*dt);
+    const sp=b.v.length();if(sp>9)b.v.multiplyScalar(9/sp);
+    b.p.addScaledVector(b.v,dt);
+    const d=b.p.length();
+    if(d>lim){const n=b.p.clone().divideScalar(d);b.p.copy(n).multiplyScalar(lim);const vn=b.v.dot(n);
+      if(vn>0)b.v.addScaledVector(n,-(1+(stir?.7:.3))*vn);if(!stir)b.v.multiplyScalar(.985)}
+  }
+  for(let i=0;i<L.length;i++)for(let j=i+1;j<L.length;j++){
+    const a=L[i],c=L[j];const dx=c.p.x-a.p.x,dy=c.p.y-a.p.y,dz=c.p.z-a.p.z;const d=Math.sqrt(dx*dx+dy*dy+dz*dz)||1e-4;
+    if(d<BR*2){const nx=dx/d,ny=dy/d,nz=dz/d,o=(BR*2-d)/2;
+      a.p.x-=nx*o;a.p.y-=ny*o;a.p.z-=nz*o;c.p.x+=nx*o;c.p.y+=ny*o;c.p.z+=nz*o;
+      const rv=(c.v.x-a.v.x)*nx+(c.v.y-a.v.y)*ny+(c.v.z-a.v.z)*nz;
+      if(rv<0){const im=-.85*rv/2;a.v.x-=im*nx;a.v.y-=im*ny;a.v.z-=im*nz;c.v.x+=im*nx;c.v.y+=im*ny;c.v.z+=im*nz}}
+  }
+}
+function dismissHero(){
+  if(!S||!S.hero)return;const m=S.hero.mesh;S.hero=null;
+  if(hasGsap&&!reduce)gsap.to(m.scale,{x:.001,y:.001,z:.001,duration:.4,ease:"back.in(2)",onComplete:()=>{m.visible=false}});else m.visible=false;
+}
+function launchBall(n,done){
+  if(!S){done();return}
+  const b=S.balls.find(x=>x.n===n);b.active=false;const m=b.mesh;m.visible=true;if(hasGsap)gsap.killTweensOf(m.scale);m.scale.setScalar(1);
+  const cam=S.camera;const dir=new THREE.Vector3();cam.getWorldDirection(dir);
+  const target=cam.position.clone().addScaledVector(dir,2.9).add(new THREE.Vector3(0,-.05,0));
+  const dummy=new THREE.Object3D();dummy.position.copy(target);dummy.lookAt(cam.position);
+  const qEnd=dummy.quaternion.clone(),qStart=m.quaternion.clone();
+  S.hero=b;
+  if(!hasGsap||reduce){m.position.copy(target);m.quaternion.copy(qEnd);m.scale.setScalar(2.4);done();return}
+  const tl=gsap.timeline({onComplete:done});
+  tl.to(m.position,{x:0,y:-R+.35,z:.1,duration:.35,ease:"power2.in"})
+    .to(m.position,{y:-R-.75,z:1.15,duration:.3,ease:"power1.in",onStart:()=>beep(220,.15,"square",.08)})
+    .to(m.position,{x:target.x,y:target.y,z:target.z,duration:.9,ease:"back.out(1.6)"})
+    .to(m.scale,{x:2.4,y:2.4,z:2.4,duration:.9,ease:"back.out(1.6)"},"<");
+  const prog={p:0},spinQ=new THREE.Quaternion(),axisY=new THREE.Vector3(0,1,0);
+  tl.to(prog,{p:1,duration:.9,ease:"power2.out",onUpdate:()=>{m.quaternion.copy(qStart).slerp(qEnd,prog.p);spinQ.setFromAxisAngle(axisY,(1-prog.p)*Math.PI*4);m.quaternion.multiply(spinQ)}},"<");
+}
+
+/* ---------- Giao diện ---------- */
+function buildBoard(){const b=$("board");b.innerHTML="";
+  for(let n=1;n<=20;n++){const c=document.createElement("button");c.className="cell";c.id="c"+n;c.textContent=n;c.setAttribute("aria-label","Số "+n);
+    c.onclick=()=>{if(!drawn.includes(n)&&!busy){audio();busy=true;draw(n)}};b.appendChild(c)}}
+function paint(){
+  for(let n=1;n<=20;n++)$("c"+n).className="cell"+(n===current?" now":drawn.includes(n)?" done":"");
+  $("hist").innerHTML=drawn.length?drawn.map(n=>n===current?"<b>"+n+"</b>":n).join(" · "):"Chưa có";
+  const rest=20-drawn.length;
+  if(!busy)$("status").textContent=current?("Số "+current+" · còn "+rest+" quả cầu"):("Sẵn sàng · "+rest+" quả cầu");
+  $("spin").disabled=busy||rest===0;
+}
+const C=2*Math.PI*27;$("arc").style.strokeDasharray=C;
+function setTimer(){$("timer").textContent=left;$("arc").style.strokeDashoffset=C*(1-left/LIMIT);$("ring").classList.toggle("low",left<=5)}
+function stopTimer(){clearInterval(tick);tick=null}
+function startTimer(){stopTimer();left=LIMIT;paused=false;setTimer();$("pause").disabled=false;$("pause").textContent="Dừng giờ";
+  tick=setInterval(()=>{if(paused)return;left--;setTimer();if(left<=5&&left>0)beep(880,.08,"square",.07);
+    if(left<=0){stopTimer();$("pause").disabled=true;beep(196,.6,"sawtooth",.12)}},1000)}
+function showQuestion(n){
+  current=n;const x=QS[n-1];
+  $("qno").textContent="CÂU "+n;
+  const q=$("q");q.classList.remove("placeholder");q.textContent=x.q;
+  const o=$("opts");o.hidden=false;o.innerHTML="";
+  x.opts.forEach((t,i)=>{const d=document.createElement("div");d.className="opt";d.innerHTML='<span class="k">'+KEYS[i]+'</span><span></span>';d.lastChild.textContent=t;o.appendChild(d)});
+  $("explain").hidden=true;$("reveal").disabled=false;
+  if(hasGsap&&!reduce){gsap.fromTo(".card",{y:30,opacity:0},{y:0,opacity:1,duration:.5,ease:"power3.out"});gsap.fromTo(".opt",{y:16,opacity:0},{y:0,opacity:1,duration:.4,stagger:.08,delay:.15,ease:"power2.out"})}
+  busy=false;paint();startTimer();
+}
+function burst(){
+  if(reduce||typeof confetti!=="function")return;const r=vp.getBoundingClientRect();
+  confetti({particleCount:120,spread:80,startVelocity:38,origin:{x:(r.left+r.width/2)/innerWidth,y:Math.min(1,(r.top+r.height*.5)/innerHeight)},colors:["#ffcd00","#c8102e","#ff3b4f","#f5f1e6"],zIndex:40});
+}
+function draw(n){
+  stopTimer();$("reveal").disabled=true;$("pause").disabled=true;
+  if(!drawn.includes(n))drawn.push(n);
+  current=null;dismissHero();paint();
+  launchBall(n,()=>{fanfare();burst();showQuestion(n)});
+}
+function spin(){
+  const rest=[];for(let n=1;n<=20;n++)if(!drawn.includes(n))rest.push(n);
+  if(!rest.length||busy)return;audio();
+  const pick=rest[Math.floor(Math.random()*rest.length)];
+  busy=true;stopTimer();$("reveal").disabled=true;$("pause").disabled=true;
+  $("status").textContent="Đang quay lồng cầu…";dismissHero();paint();
+  if(reduce||!S){draw(pick);return}
+  S.stirEnd=performance.now()+2400;
+  let r=0;const rattle=setInterval(()=>{beep(300+Math.random()*500,.05,"triangle",.05);if(++r>20)clearInterval(rattle)},110);
+  if(hasGsap){const p=S.camera.position,len=p.length();const o={k:1};gsap.to(o,{k:.88,duration:1.2,ease:"power2.inOut",yoyo:true,repeat:1,onUpdate:()=>p.setLength(len*o.k)})}
+  setTimeout(()=>draw(pick),2500);
+}
+function reveal(){
+  if(current==null||$("reveal").disabled)return;const x=QS[current-1];stopTimer();$("pause").disabled=true;
+  [...$("opts").children].forEach((d,i)=>d.classList.add(i===x.ans?"right":"dim"));
+  const e=$("explain");e.hidden=false;e.innerHTML="<strong>Đáp án "+KEYS[x.ans]+".</strong> ";e.appendChild(document.createTextNode(x.e));
+  $("reveal").disabled=true;beep(660,.2,"triangle",.15);setTimeout(()=>beep(990,.3,"triangle",.15),140);
+}
+function bingo(){
+  audio();$("overlay").hidden=false;fanfare();
+  if(hasGsap&&!reduce)gsap.fromTo("#bigtxt",{rotationX:-80,scale:.3,opacity:0,z:-400},{rotationX:0,scale:1,opacity:1,z:0,duration:.9,ease:"back.out(1.7)"});
+  if(!reduce&&typeof confetti==="function"){const end=Date.now()+2200;(function f(){
+    confetti({particleCount:6,angle:60,spread:60,origin:{x:0,y:.7},colors:["#ffcd00","#c8102e","#f5f1e6"],zIndex:60});
+    confetti({particleCount:6,angle:120,spread:60,origin:{x:1,y:.7},colors:["#ffcd00","#c8102e","#f5f1e6"],zIndex:60});
+    if(Date.now()<end)requestAnimationFrame(f)})()}
+}
+$("overlay").onclick=()=>{$("overlay").hidden=true};
+$("spin").onclick=spin;$("reveal").onclick=reveal;$("bingo").onclick=bingo;
+$("pause").onclick=()=>{paused=!paused;$("pause").textContent=paused?"Chạy tiếp":"Dừng giờ"};
+function bindSound(){$("sound").textContent="Âm thanh: "+(soundOn?"bật":"tắt");$("sound").onclick=()=>{soundOn=!soundOn;bindSound()}}
+function resetHandler(){
+  $("resetBox").innerHTML='<span class="small">Xóa toàn bộ số đã quay?</span><button id="yes">Xóa và chơi lại</button><button id="no">Hủy</button>';
+  $("no").onclick=restoreReset;
+  $("yes").onclick=()=>{stopTimer();drawn=[];current=null;busy=false;left=LIMIT;setTimer();dismissHero();resetBalls();
+    $("qno").textContent="CHUẨN BỊ";const q=$("q");q.classList.add("placeholder");q.textContent="Bấm “QUAY SỐ” để bắt đầu.";
+    $("opts").hidden=true;$("explain").hidden=true;$("reveal").disabled=true;$("pause").disabled=true;paint();restoreReset()};
+}
+function restoreReset(){$("resetBox").innerHTML='<button id="reset">Chơi lại</button><button id="sound"></button>';$("reset").onclick=resetHandler;bindSound()}
+$("reset").onclick=resetHandler;bindSound();
+document.addEventListener("keydown",ev=>{
+  if(ev.target.closest&&ev.target.closest("button,input,textarea"))return;
+  if(ev.code==="Space"){ev.preventDefault();spin()}
+  else if(ev.key==="Enter")reveal();
+  else if(ev.key==="b"||ev.key==="B")bingo();
+  else if(ev.key==="Escape")$("overlay").hidden=true;
+});
+buildBoard();paint();setTimer();
+try{initScene()}catch(e){console.error(e);vp.insertAdjacentHTML("beforeend",'<div class="fallback">Máy này chưa hiển thị được 3D. Trò chơi vẫn dùng được bằng nút QUAY SỐ.</div>')}
+</script>
+
+</body></html>
